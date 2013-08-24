@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+environment/project/cdt.managedbuild.config.gnu.exe.debug.1793467027/append=true
+environment/project/cdt.managedbuild.config.gnu.exe.debug.1793467027/appendContributed=false
+environment/project/cdt.managedbuild.config.gnu.exe.release.591553259/append=true
+environment/project/cdt.managedbuild.config.gnu.exe.release.591553259/appendContributed=false
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.debug.175959173/PATH/delimiter=;
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.debug.175959173/PATH/operation=replace
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.debug.175959173/PATH/value=${MINGW_HOME}\\bin;${MSYS_HOME}\\bin;C\:\\eclipse_parallel
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.debug.175959173/append=true
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.debug.175959173/appendContributed=true
