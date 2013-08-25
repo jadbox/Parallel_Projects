@@ -12,10 +12,10 @@ HelloWorld::HelloWorld() {
 }
 
 void HelloWorld::sayit() {
-	cout << "Hello, Professor Brown.";
+	cout << "Hello, Professor Brown." << endl;
 }
 
 int main() {
+	cout << "started" << endl;
 	HelloWorld hw();
-	hw.sayit();
 }
