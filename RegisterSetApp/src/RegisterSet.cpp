@@ -26,17 +26,11 @@ RegisterSet::RegisterSet(char type, size_t number_of_registers) {
 	default:
 		throw("Invalid Type");
 	}
-	//memmove(registers+1, Register(unitSize), sizeof(Register));
-	for(size_t i = 0; i < number_of_registers; i++) {
-		auto r = Register(unitSize);
-		registers.push_back( r );
-		//registers[i] = Register(unitSize);
-	}
-}
 
-// Destroy data
-RegisterSet::~RegisterSet() {
-	//for(auto r : registers) r._free();
+	registers.reserve(number_of_registers);
+	for(size_t i = 0; i < number_of_registers; i++) {
+		registers.push_back( Register(unitSize) );
+	}
 }
 
 // get data in the register

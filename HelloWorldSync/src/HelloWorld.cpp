@@ -1,21 +1,29 @@
 /*
- * HelloWorld.cpp
- *
- *  Created on: Aug 24, 2013
- *      Author: dunlap
- */
+
+Name: Jonathan Dunlap
+
+Course: Introduction to Parallel and Cloud Computing
+
+CRN: 75092
+
+Assignment: Hello World PTP
+
+Data: 8/24/2013
+
+*/
 
 #include "HelloWorld.h"
 
 HelloWorld::HelloWorld() {
-	sayit();
 }
 
 void HelloWorld::sayit() {
-	cout << "Hello, Professor Brown." << endl;
+	cout << "Hello World!" << endl;
 }
 
 int main() {
 	cout << "started" << endl;
-	HelloWorld hw();
+
+	HelloWorld hw;
+	hw.sayit();
 }

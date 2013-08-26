@@ -15,16 +15,17 @@ using namespace std;
 
 struct Register {
 	void* raw; // void* is a pointer that points to "something" that isn't specified. This allows Register
-	size_t _size;
 
-	Register(size_t size):_size(size) {
+	Register(size_t size) {
 		raw = calloc(1, size); // allocate memory for register and initialize to 0
 	}
 	~Register() {
 		free(raw);
 	}
-	Register(const Register& r) {
-		raw = calloc(1, r._size); // when put into a vector, this is copy constructed. This initializes a new spot.
+	// When adding this to a vector, swap the data into the new register allocated by vector
+	Register(const Register& r):raw(nullptr) {
+		auto& z = const_cast<Register&>(r);
+		swap(raw, z.raw);
 	}
 	void _free() {
 		free(raw);
@@ -56,7 +57,6 @@ private:
 public:
 	// Ctor to make a register manager using a char code for the type
 	RegisterSet(char type, size_t number_of_registers);
-	~RegisterSet();
 	// get data in the register
 	Register& getr(size_t index);
 	// set data in the register
