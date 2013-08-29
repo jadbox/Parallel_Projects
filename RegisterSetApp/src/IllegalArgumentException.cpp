@@ -1,9 +1,16 @@
 /*
- * IllegalArgumentException.cpp
- *
- *  Created on: Aug 28, 2013
- *      Author: jonathan
- */
+
+Name: Jonathan Dunlap
+
+Course: Introduction to Parallel and Cloud Computing
+
+CRN: 75092
+
+Assignment: RegisterSet IllegalArgumentException
+
+Data: 8/29/2013
+
+*/
 
 #include "IllegalArgumentException.h"
 

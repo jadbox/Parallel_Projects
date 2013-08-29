@@ -6,9 +6,9 @@ Course: Introduction to Parallel and Cloud Computing
 
 CRN: 75092
 
-Assignment: Registers
+Assignment: RegisterSet
 
-Data: 8/21/2013
+Data: 8/29/2013
 
 */
 #include <iostream>
@@ -33,9 +33,10 @@ int main() {
 		r.setr(2, new int(1));
 		int x2 = r.getr(2).get_i();
 
-		r.getr(0);
-
 		cout << "Reg1: " <<  x << " " << x2<< endl; // calls getr with template int to extract the correct register value back
+		r.getr(11);
+
+
 
 	} catch(IllegalArgumentException& e) {
 		cout << "error " << e.what();

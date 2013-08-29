@@ -1,9 +1,16 @@
 /*
- * RegistersSet.cpp
- *
- *  Created on: Aug 24, 2013
- *      Author: dunlap
- */
+
+Name: Jonathan Dunlap
+
+Course: Introduction to Parallel and Cloud Computing
+
+CRN: 75092
+
+Assignment: RegisterSet
+
+Data: 8/29/2013
+
+*/
 #include "RegisterSet.h"
 
 // Ctor to make a register manager using a char code for the type
@@ -56,14 +63,14 @@ void RegisterSet::reset() {
 
 // get data in the register
 Register& RegisterSet::getr(size_t index) { // getr uses a template parameter to return a register slot
-	if(index >= registers.size()-1) throw IllegalArgumentException("R0 restricted"); // can't access more registered than available
+	if(index >= registers.size()-1) throw IllegalArgumentException("Index out of range"); // can't access more registered than available
 	if(index==0) throw IllegalArgumentException("Cannot access 0 register"); // prevent register 0 access
 	return registers[index]; // cast the void* to the appropriate type T from the template
 }
 
 // set data in the register
 void RegisterSet::setr(size_t index, void* data) { // gets the value of a register slot using the T template type
-	if(index >= registers.size()-1) throw IllegalArgumentException("R0 restricted"); // can't access more registered than available
+	if(index >= registers.size()-1) throw IllegalArgumentException("Index out of range"); // can't access more registered than available
 	if(index==0) throw IllegalArgumentException("Cannot access 0 register"); // prevent register 0 access
 	registers[index].raw = data;
 }

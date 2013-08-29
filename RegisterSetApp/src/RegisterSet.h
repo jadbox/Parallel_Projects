@@ -1,9 +1,16 @@
 /*
- * RegistersSet.h
- *
- *  Created on: Aug 24, 2013
- *      Author: dunlap
- */
+
+Name: Jonathan Dunlap
+
+Course: Introduction to Parallel and Cloud Computing
+
+CRN: 75092
+
+Assignment: RegisterSet
+
+Data: 8/29/2013
+
+*/
 #pragma once
 
 #include <iostream>
