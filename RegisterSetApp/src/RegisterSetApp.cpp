@@ -28,13 +28,13 @@ int main() {
 	try {
 
 		RegisterSet r; // define registers of type 'i' for integer and make 10 registers
-		r.setr(1, new int(100)); // calls the inferred setr<int> uses the "new int" parameter given
-		int x = r.getr(1).get_i();
-		r.setr(2, new int(1));
-		int x2 = r.getr(2).get_i();
+		r.set(1, new int(100)); // calls the inferred setr<int> uses the "new int" parameter given
+		int x = r.get(1).get_i();
+		r.set(2, new int(1));
+		int x2 = r.get(2).get_i();
 
 		cout << "Reg1: " <<  x << " " << x2<< endl; // calls getr with template int to extract the correct register value back
-		r.getr(11);
+		r.get(11);
 
 
 

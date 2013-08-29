@@ -36,13 +36,13 @@ RegisterSet::RegisterSet(char type, size_t number_of_registers)
 
 	reset();
 }
-
+// Ctor allows a user defined size of register, char type must be 'b'
 RegisterSet::RegisterSet(char type, size_t size, size_t number_of_registers)
 :size(size), number_of_registers(number_of_registers) {
 	if(type=='b') reset();
 	else throw IllegalArgumentException("Invalid type, use 'b'");
 }
-
+// Ctor makes a bank of 9 32bit registers
 RegisterSet::RegisterSet() {
 	size = sizeof(long);
 	number_of_registers = 9;
@@ -51,25 +51,22 @@ RegisterSet::RegisterSet() {
 
 void RegisterSet::reset() {
 	registers.clear(); // clear it out in case it's already been populated
-	size_t unitSize = 0;
 
-
-
-	registers.reserve(number_of_registers);
+	registers.reserve(number_of_registers); // reserve a mem block in the vector
 	for(size_t i = 0; i < number_of_registers; i++) {
-		registers.push_back( Register(unitSize) );
+		registers.push_back( Register(size) );
 	}
 }
 
-// get data in the register
-Register& RegisterSet::getr(size_t index) { // getr uses a template parameter to return a register slot
+// Get the Register object for the register index
+Register& RegisterSet::get(size_t index) {
 	if(index >= registers.size()-1) throw IllegalArgumentException("Index out of range"); // can't access more registered than available
 	if(index==0) throw IllegalArgumentException("Cannot access 0 register"); // prevent register 0 access
 	return registers[index]; // cast the void* to the appropriate type T from the template
 }
 
-// set data in the register
-void RegisterSet::setr(size_t index, void* data) { // gets the value of a register slot using the T template type
+// Set data directly into the Register object
+void RegisterSet::set(size_t index, void* data) {
 	if(index >= registers.size()-1) throw IllegalArgumentException("Index out of range"); // can't access more registered than available
 	if(index==0) throw IllegalArgumentException("Cannot access 0 register"); // prevent register 0 access
 	registers[index].raw = data;

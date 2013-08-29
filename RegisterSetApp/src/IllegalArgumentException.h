@@ -19,6 +19,7 @@ Data: 8/29/2013
 #include <string>
 using namespace std;
 
+// Extends invalid_argument
 class IllegalArgumentException: public invalid_argument {
 public:
 	IllegalArgumentException(const string& message);

@@ -14,6 +14,7 @@ Data: 8/29/2013
 
 #include "IllegalArgumentException.h"
 
+// Pass a string object to detail error state
 IllegalArgumentException::IllegalArgumentException(const string& message)
 	: invalid_argument(message) {}
 
