@@ -27,13 +27,18 @@ int main() {
 
 	try {
 
-		RegisterSet r('i', 10); // define registers of type 'i' for integer and make 10 registers
+		RegisterSet r; // define registers of type 'i' for integer and make 10 registers
 		r.setr(1, new int(100)); // calls the inferred setr<int> uses the "new int" parameter given
 		int x = r.getr(1).get_i();
-		cout << "Reg1: " <<  x << endl; // calls getr with template int to extract the correct register value back
+		r.setr(2, new int(1));
+		int x2 = r.getr(2).get_i();
 
-	} catch(const char* e) {
-		cout << "error " << e;
+		r.getr(0);
+
+		cout << "Reg1: " <<  x << " " << x2<< endl; // calls getr with template int to extract the correct register value back
+
+	} catch(IllegalArgumentException& e) {
+		cout << "error " << e.what();
 	}
 	return 0;
 }

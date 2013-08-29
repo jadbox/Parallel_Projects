@@ -5,6 +5,7 @@
 .ptp-sync/
 Debug*/
 Release*/
+*.prefs
 
 # Compiled Dynamic libraries
 *.so

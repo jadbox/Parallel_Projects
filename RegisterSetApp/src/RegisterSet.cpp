@@ -7,25 +7,46 @@
 #include "RegisterSet.h"
 
 // Ctor to make a register manager using a char code for the type
-RegisterSet::RegisterSet(char type, size_t number_of_registers) {
-	size_t unitSize = 0;
+RegisterSet::RegisterSet(char type, size_t number_of_registers)
+:number_of_registers(number_of_registers) {
 
 	switch(type) {
 	case 'i':
-		unitSize = sizeof(int); break;
+		size = sizeof(long); break;
 	case 'u':
-		unitSize = sizeof(unsigned int); break;
+		size = sizeof(unsigned long); break;
 	case 'l':
-		unitSize = sizeof(long); break;
+		size = sizeof(long long); break;
 	case 'n':
-		unitSize = sizeof(unsigned long); break;
+		size = sizeof(unsigned long long); break;
 	case 'f':
-		unitSize = sizeof(float); break;
+		size = sizeof(float); break;
 	case 'd':
-		unitSize = sizeof(double); break;
+		size = sizeof(double); break;
 	default:
 		throw("Invalid Type");
 	}
+
+	reset();
+}
+
+RegisterSet::RegisterSet(char type, size_t size, size_t number_of_registers)
+:size(size), number_of_registers(number_of_registers) {
+	if(type=='b') reset();
+	else throw IllegalArgumentException("Invalid type, use 'b'");
+}
+
+RegisterSet::RegisterSet() {
+	size = sizeof(long);
+	number_of_registers = 9;
+	reset();
+}
+
+void RegisterSet::reset() {
+	registers.clear(); // clear it out in case it's already been populated
+	size_t unitSize = 0;
+
+
 
 	registers.reserve(number_of_registers);
 	for(size_t i = 0; i < number_of_registers; i++) {
@@ -35,14 +56,14 @@ RegisterSet::RegisterSet(char type, size_t number_of_registers) {
 
 // get data in the register
 Register& RegisterSet::getr(size_t index) { // getr uses a template parameter to return a register slot
-	if(index >= registers.size()-1) throw("Out of bounds"); // can't access more registered than available
-	if(index==0) throw("Cannot access 0 register"); // prevent register 0 access
+	if(index >= registers.size()-1) throw IllegalArgumentException("R0 restricted"); // can't access more registered than available
+	if(index==0) throw IllegalArgumentException("Cannot access 0 register"); // prevent register 0 access
 	return registers[index]; // cast the void* to the appropriate type T from the template
 }
 
 // set data in the register
 void RegisterSet::setr(size_t index, void* data) { // gets the value of a register slot using the T template type
-	if(index >= registers.size()-1) throw("Out of bounds"); // can't access more registered than available
-	if(index==0) throw("Cannot access 0 register"); // prevent register 0 access
+	if(index >= registers.size()-1) throw IllegalArgumentException("R0 restricted"); // can't access more registered than available
+	if(index==0) throw IllegalArgumentException("Cannot access 0 register"); // prevent register 0 access
 	registers[index].raw = data;
 }
