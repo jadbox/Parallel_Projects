@@ -12,14 +12,10 @@ Data: 8/29/2013
 
 */
 
-#include <stdexcept>
-#include <string>
-using namespace std;
+#include "IllegalArgumentException.h"
 
-// Extends invalid_argument
-class IllegalArgumentException: public invalid_argument {
-public:
-	IllegalArgumentException(const string& message): invalid_argument(message) {}
-};
+// Pass a string object to detail error state
+IllegalArgumentException::IllegalArgumentException(const string& message)
+	: invalid_argument(message) {}
 
 

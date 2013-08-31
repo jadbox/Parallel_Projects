@@ -17,7 +17,7 @@ Data: 8/29/2013
 #include <cstring>
 #include <exception>
 
-#include "RegisterSet.cpp"
+#include "RegisterSet.h"
 using namespace std;
 
 
@@ -34,9 +34,6 @@ int main() {
 		int x2 = r.get(2).get_i();
 
 		cout << "Reg1: " <<  x << " " << x2<< endl; // calls getr with template int to extract the correct register value back
-		r.get(11);
-
-
 
 	} catch(IllegalArgumentException& e) {
 		cout << "error " << e.what();
