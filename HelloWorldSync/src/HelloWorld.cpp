@@ -18,7 +18,7 @@ HelloWorld::HelloWorld() {
 }
 
 void HelloWorld::sayit() {
-	cout << "Hello World!" << endl;
+	cout << "Hello World !" << endl;
 }
 
 int main() {

@@ -22,7 +22,7 @@ using namespace std;
 
 
 int main() {
-	auto hello = "c++11 supported";
+	const char* hello = "c++11 supported";
 	cout << hello << endl; // prints !!!Hello World!!!
 
 	try {

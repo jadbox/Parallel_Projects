@@ -78,15 +78,14 @@ Register::Register(size_t size) {
 }
 
 //=============== Register Helper
-// Free the void* in the dtor
 Register::~Register() {
-	free(raw);
+	free(raw); // Free the void* in the dtor
 }
 
 // When adding this to a vector, swap the data into the new register allocated by vector
-Register::Register(const Register& r):raw(nullptr) {
+Register::Register(const Register& r):raw(0) {
 	flag_zero = flag_carry = flag_negative = false;
-	auto& z = const_cast<Register&>(r);
+	Register& z = const_cast<Register&>(r);
 	swap(raw, z.raw);
 }
 
