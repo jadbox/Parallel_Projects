@@ -1,9 +1,16 @@
 /*
- * ALU.cpp
- *
- *  Created on: Sep 3, 2013
- *      Author: jonathan
- */
+
+Name: Jonathan Dunlap
+
+Course: Introduction to Parallel and Cloud Computing
+
+CRN: 75092
+
+Assignment: ALU - Topic 2
+
+Data: 9/3/2013
+
+*/
 
 #include "ALU.h"
 #include <climits>
@@ -56,7 +63,11 @@ void ALU::MUL(int Register1, int Register2, int Register3){
 	int b = *(int*) registerSet.get(Register2);
 	int c = (int) (a * b);
 	registerSet.set( Register1, new int(c) );
-	if(a * b > INT_MAX) registerSet.carryFlags[Register1] = true;
+
+	if(a * b > INT_MAX) {
+		int r = a * b - INT_MAX;
+		registerSet.set( Register3, new int(r) );
+	}
 }
 
 void ALU::DIV(int Register1, int Register2, int Register3){

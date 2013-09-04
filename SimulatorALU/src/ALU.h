@@ -1,9 +1,16 @@
 /*
- * ALU.h
- *
- *  Created on: Sep 3, 2013
- *      Author: jonathan
- */
+
+Name: Jonathan Dunlap
+
+Course: Introduction to Parallel and Cloud Computing
+
+CRN: 75092
+
+Assignment: ALU - Topic 2
+
+Data: 9/3/2013
+
+*/
 
 #ifndef ALU_H_
 #define ALU_H_
