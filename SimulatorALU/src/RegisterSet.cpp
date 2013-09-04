@@ -72,11 +72,14 @@ void* RegisterSet::get(int registerIndex) {
 void RegisterSet::reset() {
 	//clean registers
 	registers.clear();
+	carryFlags.clear();
+	zeroFlags.clear();
+	negativeFlags.clear();
 	for (int i = 0; i < count; i++) {
 		//manage flags
-		carryFlags[i] = false;
-		zeroFlags[i] = false;
-		negativeFlags[i] = false;
+		carryFlags.push_back(false);
+		zeroFlags.push_back(false);
+		negativeFlags.push_back(false);
 		//allocate and push
 		void* data = calloc (1,size);
 		registers.push_back(data);
