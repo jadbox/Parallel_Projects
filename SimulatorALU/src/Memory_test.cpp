@@ -38,7 +38,7 @@ void bench() {
 	}
 	r = HPTimer::get_time();
 	cout << "Benchmark read		: " << r-time << " ~0.00154098" << endl;
-	cout << "Mem checksum: " << total;
+	cout << "Ignore: checksum: " << total << endl;
 }
 
 void Memtest() {

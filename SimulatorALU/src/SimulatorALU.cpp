@@ -22,9 +22,10 @@ int main_main() {
 
 
 ///============
-void Memtest();
+void Memtest(), ALU_test();
 
 int main(int num, const char** args) {
 	Memtest();
+	ALU_test();
 	return 0;
 }

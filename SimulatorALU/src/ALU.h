@@ -30,9 +30,11 @@ public:
 	void DIV(int Register1, int Register2, int Register3);
 	void STO(int Register1, int Register2);
 
+	Memory memory;
+	RegisterSet registerSet;
+
 private:
-Memory memory;
-RegisterSet registerSet;
+
 
 };
 
