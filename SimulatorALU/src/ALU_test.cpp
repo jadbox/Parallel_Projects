@@ -44,11 +44,27 @@ void alu_bench() {
 		alu.STO(1, 5); // put
 	}
 	r = HPTimer::get_time();
-	cout << "Benchmark alu mutli	: " << r-time << " ~0.030205" << endl;
+	cout << "Benchmark alu mutli	: " << r - time << " ~0.030205" << endl;
 }
 
 void ALU_test() {
 	ALU alu;
+	cout << "Instanced ALU" << endl;
+	// Reg copy
+	alu.LD(9, '#', 555);
+	alu.LD(8, '0', 9);
+	alu.LD(5, '#', 511);
+	alu.STO(8, 5);
+	test( alu.memory.read(511) == 555, "Reg copy test");
+
+	// Mem lookup
+	alu.memory.write(511, 555); // 511 holds 555
+	alu.LD(5, '#', 511);
+	alu.LD(8, '@', 5); // get the m555 value, from the mem address of reg5
+	alu.LD(5, '#', 100); // make answer mem location
+	alu.STO(8, 5); // put reg8 into reg5 mem address
+	test( alu.memory.read(100) == 555, "Mem lookup test");
+
 	//==== ADD
 	alu.LD(1, '#', 123); // literal value to add
 	alu.LD(2, '#', 222); // literal value to add
@@ -83,5 +99,6 @@ void ALU_test() {
 	//cout <<  alu.memory.read(0) << endl;
 	test( alu.memory.read(1) == 5, "ALU LD, DIV, STO test");
 
+	finish_tests("ALU");
 	alu_bench();
 }

@@ -26,6 +26,7 @@ void Memtest(), ALU_test();
 
 int main(int num, const char** args) {
 	Memtest();
+	cout << endl;
 	ALU_test();
 	return 0;
 }
