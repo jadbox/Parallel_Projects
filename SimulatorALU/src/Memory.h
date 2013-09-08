@@ -11,7 +11,7 @@ Assignment: Memory - Topic 2
 Data: 9/3/2013
 
 */
-
+#pragma once
 #ifndef VMEMORY_H_
 #define VMEMORY_H_
 
