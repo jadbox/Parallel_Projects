@@ -40,9 +40,6 @@ registertype CTAMemory::read(unsigned int address) {
 			break;
 		}
 	}
-
-	registertype a = mem->read(address);
-	addr[cache_spot % cache_length] = a;
-	cache_spot++;
-	return a;
+	if(cache_spot == cache_length) cache_spot = 0;
+	return addr[cache_spot++] = mem->read(address);
 }
