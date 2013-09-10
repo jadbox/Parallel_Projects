@@ -22,13 +22,13 @@ class Memory {
 public:
 	Memory();
 	virtual ~Memory();
+	static const unsigned int MEM_SIZE = 512;
 
 	void write(unsigned int address, registertype value); // registertype defined by typedef
 	registertype read(unsigned int address); // registertype defined by typedef
 
 private:
-	static const unsigned int MEM_SIZE = 512;
-	registertype data[MEM_SIZE];
+	volatile registertype data[MEM_SIZE];
 
 };
 

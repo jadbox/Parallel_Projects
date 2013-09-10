@@ -22,10 +22,10 @@ using namespace std;
 
 
 void bench() {
-	Memory memory;
+	Memory* memory = new Memory();
 	double time = HPTimer::get_time();
 	for(int i=0; i < 512*150; i++) {
-		memory.write(i%512, i);
+		memory->write(i%512, i);
 	}
 	double r = HPTimer::get_time();
 
@@ -34,11 +34,12 @@ void bench() {
 	int total=0;
 	time = HPTimer::get_time();
 	for(int i=0; i < 512*150; i++) {
-		total += memory.read(i%512);
+		total += memory->read(i%512);
 	}
 	r = HPTimer::get_time();
 	cout << "Benchmark read		: " << r-time << " ~0.00154098" << endl;
 	cout << "Ignore: checksum: " << total << endl;
+	delete memory;
 }
 
 void Memtest() {

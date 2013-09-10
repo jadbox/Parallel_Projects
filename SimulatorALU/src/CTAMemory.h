@@ -14,6 +14,8 @@ class CTAMemory {
 public:
 	static const int CACHE_BYTES = 64;
 	CTAMemory();
+	~CTAMemory();
+
 	CTAMemory(Memory* mem);
 
 	void write(unsigned int address, registertype value);
@@ -22,10 +24,11 @@ public:
 private:
 	Memory* mem;
 	registertype cache[ CACHE_BYTES / sizeof(registertype) / 2]; // [0] = mem addr, [1] = cached value
-	unsigned int addr[ CACHE_BYTES / sizeof(registertype) / 2];
+	unsigned int mem_cache_index;
 
-	int cache_length = CACHE_BYTES / sizeof(registertype) / 2;
-	int cache_spot;
+	static const int cache_length = CACHE_BYTES / sizeof(registertype) / 2;
+
+	void fillCache(unsigned int cache_index);
 };
 
 #endif /* CTAMEMORY_H_ */

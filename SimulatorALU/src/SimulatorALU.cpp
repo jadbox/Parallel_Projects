@@ -22,10 +22,12 @@ int main_main() {
 
 
 ///============
-void Memtest(), ALU_test();
+void Memtest(), ALU_test(), CTAMemtest();
 
 int main(int num, const char** args) {
 	Memtest();
+	cout << endl;
+	CTAMemtest();
 	cout << endl;
 	ALU_test();
 	return 0;

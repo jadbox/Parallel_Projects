@@ -6,40 +6,42 @@
  */
 
 #include "CTAMemory.h"
+#include <iostream>
+
+CTAMemory::~CTAMemory() {
+	delete mem;
+}
+
+void CTAMemory::fillCache(unsigned int cache_index) {
+	mem_cache_index = cache_index;
+	int offset = 0;
+	if(cache_index+cache_length > mem->MEM_SIZE) offset = (cache_index+cache_length) - mem->MEM_SIZE;
+
+	for(int i=0; i < cache_length-offset; i++)
+		cache[i] = mem->read(i+mem_cache_index);
+
+	//std::cout << "cache flush" << std::endl;
+}
 
 CTAMemory::CTAMemory() {
 	mem = new Memory();
-	for(int i=0; i < cache_length; i+=1) addr[i] = 0;
-	cache_spot = 0;
+	fillCache(0);
 }
+
 CTAMemory::CTAMemory(Memory* memory):mem(memory) {
-	for(int i=0; i < cache_length; i+=1) addr[i] = 0;
-	cache_spot = 0;
+	fillCache(0);
 }
 
 void CTAMemory::write(unsigned int address, registertype value) {
-	registertype* spot = 0;
-	for(int i=0; i < cache_length; i+=2) {
-		unsigned int cv = addr[i];
-		if(address == cv || cv == 0) {
-			spot = cache+i;
-			break;
-		}
-	}
-//	/spot = value;
+	if(address < mem_cache_index || address > mem_cache_index+cache_length)
+		fillCache(address);
+	//else std::cout << "in cache" << std::endl;
+	cache[address-mem_cache_index]=value;
 }
 
 registertype CTAMemory::read(unsigned int address) {
-	for(int i=0; i < cache_length; i+=2) {
-		unsigned int cv = addr[i];
-		if(address == cv) {
-			return cache[i];
-		}
-		else if(address==0) {
-			cache_spot = i;
-			break;
-		}
-	}
-	if(cache_spot == cache_length) cache_spot = 0;
-	return addr[cache_spot++] = mem->read(address);
+	if(address < mem_cache_index || address > mem_cache_index+cache_length)
+		fillCache(address);
+	//else std::cout << "in cache" << std::endl;
+	return cache[address-mem_cache_index];
 }

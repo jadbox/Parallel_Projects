@@ -23,7 +23,7 @@ using namespace std;
 void alu_bench() {
 	ALU alu;
 	double time = HPTimer::get_time();
-	for(int i=0; i < 512*150; i++) {
+	for(int i=0; i < 512*850; i++) {
 		alu.LD(1, '#', i%512); // literal value to add
 		alu.LD(2, '#', i); // literal value to add
 		alu.LD(5, '#', 511); // memory address
@@ -34,9 +34,8 @@ void alu_bench() {
 
 	cout << "Benchmark alu add 	: " << r-time << " ~0.0306486" <<endl;
 
-	int total=0;
 	time = HPTimer::get_time();
-	for(int i=0; i < 512*150; i++) {
+	for(int i=0; i < 512*850; i++) {
 		alu.LD(1, '#', i%512); // literal value to add
 		alu.LD(2, '#', i); // literal value to add
 		alu.LD(5, '#', 111); // memory address

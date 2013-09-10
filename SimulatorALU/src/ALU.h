@@ -17,6 +17,7 @@ Data: 9/3/2013
 
 #include "RegisterSet.h"
 #include "Memory.h"
+#include "CTAMemory.h"
 
 class ALU {
 public:
@@ -30,7 +31,9 @@ public:
 	void DIV(int Register1, int Register2, int Register3);
 	void STO(int Register1, int Register2);
 
-	Memory memory;
+	CTAMemory memory; // toggle these memory strategies
+	//Memory memory;
+
 	RegisterSet registerSet;
 
 private:
