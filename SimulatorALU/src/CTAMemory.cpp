@@ -1,9 +1,16 @@
 /*
- * CTAMemory.cpp
- *
- *  Created on: Sep 8, 2013
- *      Author: dunlap
- */
+
+Name: Jonathan Dunlap
+
+Course: Introduction to Parallel and Cloud Computing
+
+CRN: 75092
+
+Assignment: CTAMemory - Topic 2
+
+Data: 9/9/2013
+
+*/
 
 #include "CTAMemory.h"
 #include <iostream>
