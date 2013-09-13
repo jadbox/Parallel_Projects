@@ -7,6 +7,7 @@
 //============================================================================
 
 #include <iostream>
+#include "ParallelTeam.h"
 using namespace std;
 
 int main() {

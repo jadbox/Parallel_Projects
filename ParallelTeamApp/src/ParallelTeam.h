@@ -9,10 +9,12 @@
 #define PARALLELTEAM_H_
 
 #include <vector>
+#include <unistd.h>
+#include <sys/types.h>
 
 class ParallelTeam {
 private:
-	std::vector<std::pid_t> pids;
+	std::vector<pid_t> pids;
 public:
 	ParallelTeam();
 	virtual ~ParallelTeam();
