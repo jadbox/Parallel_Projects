@@ -1,0 +1,20 @@
+//============================================================================
+// Name        : ParallelTeamApp.cpp
+// Author      : Jonathan Dunlap
+// Version     :
+// Copyright   : 
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <unistd.h>
+using namespace std;
+
+int main() {
+	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+
+	ParallelTeam pt;
+
+
+	return 0;
+}
