@@ -10,7 +10,7 @@
 
 #include <vector>
 #include <unistd.h>
-#include <sys/types.h>
+//#include <sys/types.h>
 
 class ParallelTeam {
 private:

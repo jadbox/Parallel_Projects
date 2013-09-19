@@ -14,7 +14,7 @@ int main() {
 	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
 
 	ParallelTeam pt;
-
+	pt.createProcessTeam(5);
 
 	return 0;
 }

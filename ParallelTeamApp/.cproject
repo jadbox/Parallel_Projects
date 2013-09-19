@@ -16,7 +16,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.exe.debug.1510661098." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.cygwin.exe.debug.448113836" name="Cygwin GCC" superClass="cdt.managedbuild.toolchain.gnu.cygwin.exe.debug">
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.cygwin.exe.debug.1555639066" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.cygwin.exe.debug"/>
-							<builder buildPath="${workspace_loc:/ParallelTeamApp}/Debug_with_Cygwin_GCC" id="org.eclipse.cdt.build.core.internal.builder.912013361" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder buildPath="${workspace_loc:/ParallelTeamApp}/Debug_with_Cygwin_GCC" id="org.eclipse.cdt.build.core.internal.builder.912013361" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.cygwin.exe.debug.1558352870" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.cygwin.exe.debug">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1833509065" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
