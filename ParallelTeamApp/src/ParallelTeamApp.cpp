@@ -1,10 +1,16 @@
-//============================================================================
-// Name        : ParallelTeamApp.cpp
-// Author      : Jonathan Dunlap
-// Version     :
-// Copyright   : 
-// Description : Hello World in C++, Ansi-style
-//============================================================================
+/*
+
+Name: Jonathan Dunlap
+
+Course: Introduction to Parallel and Cloud Computing
+
+CRN: 75092
+
+Assignment: ParallelTeam
+
+Data: 9/19/2013
+
+*/
 
 #include <iostream>
 #include "ParallelTeam.h"

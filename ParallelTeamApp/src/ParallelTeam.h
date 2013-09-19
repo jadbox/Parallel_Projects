@@ -1,10 +1,16 @@
 /*
- * ParallelTeam.h
- *
- *  Created on: Sep 12, 2013
- *      Author: dunlap
- */
 
+Name: Jonathan Dunlap
+
+Course: Introduction to Parallel and Cloud Computing
+
+CRN: 75092
+
+Assignment: ParallelTeam
+
+Data: 9/19/2013
+
+*/
 #ifndef PARALLELTEAM_H_
 #define PARALLELTEAM_H_
 
