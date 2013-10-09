@@ -14,6 +14,7 @@ Data: 9/3/2013
 
 #include "Memory.h"
 #include "IllegalArgumentException.h"
+#include <iostream>
 
 Memory::Memory() {
 	// TODO Auto-generated constructor stub
@@ -29,6 +30,7 @@ Memory::Memory(int* _data, unsigned int size) {
 	externalData = true;
 	data = _data;
 	memSize = size;
+	cout << size << endl;
 	for(unsigned int i=0; i < memSize; i++) data[i] = 0;
 }
 
