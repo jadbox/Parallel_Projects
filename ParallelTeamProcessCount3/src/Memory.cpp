@@ -17,29 +17,33 @@ Data: 9/3/2013
 
 Memory::Memory() {
 	// TODO Auto-generated constructor stub
-	MEM_SIZE = 512;
-	data = new int[MEM_SIZE];
-	for(unsigned int i=0; i < MEM_SIZE; i++) data[i] = 0;
+	externalData = false;
+	memSize = 512;
+	data = new int[memSize];
+	for(unsigned int i=0; i < memSize; i++) data[i] = 0;
 }
 
+int Memory::size() { return memSize; }
+
 Memory::Memory(int* _data, unsigned int size) {
+	externalData = true;
 	data = _data;
-	MEM_SIZE = size;
-	for(unsigned int i=0; i < MEM_SIZE; i++) data[i] = 0;
+	memSize = size;
+	for(unsigned int i=0; i < memSize; i++) data[i] = 0;
 }
 
 Memory::~Memory() {
-	// TODO Auto-generated destructor stub
+	if(!externalData) delete[] data; // if this call allocated the memory
 }
 
 // registertype defined by typedef
 void Memory::write(unsigned int address, registertype value) {
-	if(address >= MEM_SIZE) throw IllegalArgumentException("index out of range");
+	if(address >= memSize) throw IllegalArgumentException("index out of range");
 	data[address] = value;
 }
 
 // registertype defined by typedef
 registertype Memory::read(unsigned int address) {
-	if(address >= MEM_SIZE) throw IllegalArgumentException("index out of range");
+	if(address >= memSize) throw IllegalArgumentException("index out of range");
 	return data[address];
 }

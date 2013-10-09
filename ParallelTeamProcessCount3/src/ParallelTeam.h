@@ -16,6 +16,7 @@ Data: 9/19/2013
 
 #include <vector>
 #include <unistd.h>
+#include "Memory.h"
 //#include <sys/types.h>
 
 class ParallelTeam {
@@ -25,7 +26,7 @@ public:
 	ParallelTeam();
 	virtual ~ParallelTeam();
 
-	void createProcessTeam(int n);
+	void createProcessTeam( int n, void (*childFunc)(int i, Memory *mem), Memory *mem );
 
 };
 

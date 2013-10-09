@@ -23,13 +23,15 @@ public:
 	Memory();
 	Memory(int* _data, unsigned int size);
 	virtual ~Memory();
-	unsigned int MEM_SIZE;
+	int size();
 
 	void write(unsigned int address, registertype value); // registertype defined by typedef
 	registertype read(unsigned int address); // registertype defined by typedef
 
 private:
+	bool externalData;
 	registertype *data;
+	unsigned int memSize;
 
 };
 

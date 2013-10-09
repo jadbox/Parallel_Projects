@@ -22,10 +22,6 @@ Data: 9/19/2013
 #include <time.h>
 #include <stdio.h>
 
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include "Memory.h"
-
 using namespace std;
 
 ParallelTeam::ParallelTeam():pids() {
@@ -37,11 +33,8 @@ ParallelTeam::~ParallelTeam() {
 	// TODO Auto-generated destructor stub
 }
 
-void ParallelTeam::createProcessTeam(int n) {
-	int shm = shmget(IPC_PRIVATE, n*sizeof(int), NULL);
-
-	int* ptr = (int*) shmat(shm, NULL, NULL);
-	Memory mem(ptr);
+void ParallelTeam::createProcessTeam( int n, void (*childFunc)(int i, Memory *mem), Memory *mem ) {
+	cout << "createProcessTeam " << n;
 	// create process
 	time_t start_time = time(NULL);
 
@@ -58,10 +51,11 @@ void ParallelTeam::createProcessTeam(int n) {
 			time_t now = time(0);
 			tm = localtime (&now);
 
-			srand(i * time(NULL)); // pick a random number in a system range
-			int x = 1 + rand() % 7; // random number constraint
-			sleep(x); // child process sleep for x seconds
-			cout << "Child says: my process is ending. PPID:" << getppid() << ", PID:" << getpid() << ", sleep time:" << x << ", ";
+			//srand(i * time(NULL)); // pick a random number in a system range
+			//int x = 1 + rand() % 7; // random number constraint
+			//sleep(x); // child process sleep for x seconds
+			(*childFunc)(i, mem);
+			cout << "Child says: my process is ending. PPID:" << getppid() << ", PID:" << getpid();
 			printf ("Launched %04d-%02d-%02d %02d:%02d:%02d\n",
 			        tm->tm_year+1900, tm->tm_mon+1, tm->tm_mday,
 			        tm->tm_hour, tm->tm_min, tm->tm_sec);
