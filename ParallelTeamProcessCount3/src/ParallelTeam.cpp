@@ -6,13 +6,11 @@ Course: Introduction to Parallel and Cloud Computing
 
 CRN: 75092
 
-Assignment: ParallelTeam
+Assignment: ParallelTeamProcessCount3
 
-Data: 9/19/2013
+Data: 10/09/2013
 
 */
-
-
 #include "ParallelTeam.h"
 #include <iostream>
 #include <string>
@@ -22,6 +20,9 @@ Data: 9/19/2013
 #include <time.h>
 #include <stdio.h>
 #include <algorithm>
+
+#include <sys/ipc.h>
+#include <sys/shm.h>
 
 using namespace std;
 
@@ -51,12 +52,24 @@ void ParallelTeam::childLogic(int i, Memory *mem) {
 void ParallelTeam::onChildrenComplete(int n, Memory *mem) {
 	int total = 0;
 	for(int x = 0; x < n; x++) total += mem->read(x);
-	cout << "Total folden 3s are: " << total << endl;
+	cout << "Total 3s folded from shared memory: " << total << endl;
+
+	delete mem;
+	shmdt(shmAddr);
+	shmctl(shmPos, IPC_RMID, 0);
 }
 
-void ParallelTeam::createProcessTeam(int n, Memory *mem) {
+Memory* ParallelTeam::createShm(int n) {
+	shmPos = shmget(IPC_PRIVATE, n*sizeof(int), IPC_CREAT | SHM_R | SHM_W);
+	shmAddr = (int*) shmat(shmPos, NULL, 0);
+	return new Memory(shmAddr, n);
+}
+
+void ParallelTeam::createProcessTeam(int n) {
 	workSegment = (int) _workListSize / n;
-	cout << "createProcessTeam with " << n << " and segment size: " << workSegment << endl;
+	createShm(n);
+	Memory* mem = createShm(n);
+
 	// create process
 	time_t start_time = time(NULL);
 
@@ -78,7 +91,7 @@ void ParallelTeam::createProcessTeam(int n, Memory *mem) {
 			//sleep(x); // child process sleep for x seconds
 			childLogic(i, mem);
 			cout << "Child says: my process is ending. PPID:" << getppid() << ", PID:" << getpid();
-			printf ("Launched %04d-%02d-%02d %02d:%02d:%02d\n",
+			printf (" Launched %04d-%02d-%02d %02d:%02d:%02d\n",
 			        tm->tm_year+1900, tm->tm_mon+1, tm->tm_mday,
 			        tm->tm_hour, tm->tm_min, tm->tm_sec);
 			_exit(0); // exit the child process

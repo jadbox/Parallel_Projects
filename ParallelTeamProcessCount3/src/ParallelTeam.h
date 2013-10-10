@@ -6,9 +6,9 @@ Course: Introduction to Parallel and Cloud Computing
 
 CRN: 75092
 
-Assignment: ParallelTeam
+Assignment: ParallelTeamProcessCount3
 
-Data: 9/19/2013
+Data: 10/09/2013
 
 */
 #ifndef PARALLELTEAM_H_
@@ -25,12 +25,15 @@ private:
 	int* _workList;
 	int _workListSize;
 	int workSegment;
+	int* shmAddr;
+	int shmPos;
 
 public:
 	ParallelTeam(int* workList, int workListSize);
 	virtual ~ParallelTeam();
 
-	void createProcessTeam(int n, Memory *mem );
+	Memory* createShm(int n);
+	void createProcessTeam(int n);
 	void childLogic(int i, Memory *mem);
 	void onChildrenComplete(int n, Memory *mem);
 };
