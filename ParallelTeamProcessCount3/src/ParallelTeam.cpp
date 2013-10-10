@@ -21,10 +21,13 @@ Data: 9/19/2013
 #include <sys/types.h>
 #include <time.h>
 #include <stdio.h>
+#include <algorithm>
 
 using namespace std;
 
-ParallelTeam::ParallelTeam():pids() {
+ParallelTeam::ParallelTeam(int* workList, int workListSize):pids() {
+	_workList = workList;
+	_workListSize = workListSize;
 	// TODO Auto-generated constructor stub
 	cout << "ParallelTeam started" << endl;
 }
@@ -33,8 +36,27 @@ ParallelTeam::~ParallelTeam() {
 	// TODO Auto-generated destructor stub
 }
 
-void ParallelTeam::createProcessTeam( int n, void (*childFunc)(int i, Memory *mem), Memory *mem ) {
-	cout << "createProcessTeam " << n;
+// Count the 3s
+void ParallelTeam::childLogic(int i, Memory *mem) {
+	//cout << "zzchild " << i << endl;
+	int stopTill = min<int>(i*workSegment+workSegment, _workListSize);
+
+	int total = 0;
+	for(int x = i*workSegment; x < stopTill; x++) if(_workList[x]==3) total++;
+	mem->write(i, total);
+	cout << "Total in child "<< i << ": " << total << endl;
+}
+
+// Fold the 3s
+void ParallelTeam::onChildrenComplete(int n, Memory *mem) {
+	int total = 0;
+	for(int x = 0; x < n; x++) total += mem->read(x);
+	cout << "Total folden 3s are: " << total << endl;
+}
+
+void ParallelTeam::createProcessTeam(int n, Memory *mem) {
+	workSegment = (int) _workListSize / n;
+	cout << "createProcessTeam with " << n << " and segment size: " << workSegment << endl;
 	// create process
 	time_t start_time = time(NULL);
 
@@ -54,7 +76,7 @@ void ParallelTeam::createProcessTeam( int n, void (*childFunc)(int i, Memory *me
 			//srand(i * time(NULL)); // pick a random number in a system range
 			//int x = 1 + rand() % 7; // random number constraint
 			//sleep(x); // child process sleep for x seconds
-			(*childFunc)(i, mem);
+			childLogic(i, mem);
 			cout << "Child says: my process is ending. PPID:" << getppid() << ", PID:" << getpid();
 			printf ("Launched %04d-%02d-%02d %02d:%02d:%02d\n",
 			        tm->tm_year+1900, tm->tm_mon+1, tm->tm_mday,
@@ -67,12 +89,13 @@ void ParallelTeam::createProcessTeam( int n, void (*childFunc)(int i, Memory *me
 		}
 	}
 
-	if(t > 0) { // PARENT PROCESS
-		int status;
-		for(int i = 0; i < n; i++) {
-			pid_t wid = waitpid(-1, &status, 0); // waitpid(-1...) signifies to wait until any child process ends
-			cout << "Parent says: my child process #" << wid << " ended. Second Duration: " << (time(NULL) - start_time) << endl;
-		}
+
+	int status;
+	for(int i = 0; i < n; i++) {
+		pid_t wid = waitpid(-1, &status, 0); // waitpid(-1...) signifies to wait until any child process ends
+		cout << "Parent says: my child process #" << wid << " ended. Second Duration: " << (time(NULL) - start_time) << endl;
 	}
+	onChildrenComplete(n, mem); //Post process
+
 }
 

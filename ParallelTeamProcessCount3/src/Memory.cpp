@@ -30,7 +30,6 @@ Memory::Memory(int* _data, unsigned int size) {
 	externalData = true;
 	data = _data;
 	memSize = size;
-	cout << size << endl;
 	for(unsigned int i=0; i < memSize; i++) data[i] = 0;
 }
 
