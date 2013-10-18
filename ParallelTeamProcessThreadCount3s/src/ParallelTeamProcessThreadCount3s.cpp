@@ -40,7 +40,6 @@ ParallelTeam::~ParallelTeam() {
 
 // Count the 3s
 void ParallelTeam::childLogic(int i) {
-	//cout << "zzchild " << i << endl;
 	int stopTill = min<int>(i*workSegment+workSegment, _workListSize);
 
 	int total = 0;
@@ -50,26 +49,6 @@ void ParallelTeam::childLogic(int i) {
 	pthread_exit(NULL);
 }
 
-void ParallelTeam::childLogicWrapper() {
-
-	int i  = pthreadsSize;
-	cout << "childLogicWrapper " << i;
-
-	//mem.write(i, 32);
-	struct tm *tm;
-	time_t now = time(0);
-	tm = localtime (&now);
-
-	//srand(i * time(NULL)); // pick a random number in a system range
-	//int x = 1 + rand() % 7; // random number constraint
-	//sleep(x); // child process sleep for x seconds
-	childLogic(i);
-	cout << "Child says: my process is ending. PPID:" << getppid() << ", PID:" << getpid();
-	printf (" Launched %04d-%02d-%02d %02d:%02d:%02d\n",
-			tm->tm_year+1900, tm->tm_mon+1, tm->tm_mday,
-			tm->tm_hour, tm->tm_min, tm->tm_sec);
-}
-
 // Fold the 3s
 void ParallelTeam::onChildrenComplete(int n) {
 	int total = 0;
@@ -77,25 +56,31 @@ void ParallelTeam::onChildrenComplete(int n) {
 	cout << "Total 3s folded from shared memory: " << total << endl;
 
 	delete mem;
-//	shmdt(shmAddr);
-//	shmctl(shmPos, IPC_RMID, 0);
 }
 
 Memory* ParallelTeam::createShm(int n) {
-	return new Memory(n); // doesn't use shared memory for threads
+	return new Memory(n+1); // doesn't use shared memory for threads
 }
 
 static void* hello_helper(void *This)
 {
-		cout << "hello_helper";
-		((ParallelTeam *)This)->childLogicWrapper();
+		ParallelTeam* pt = (ParallelTeam*) This;
+		int i  = pt->pthreadsSize;
+		struct tm *tm;
+		time_t now = time(0);
+		tm = localtime (&now);
+
+		pt->childLogic(i);
+		cout << "Child says: my thread is ending";
+		printf (" Launched %04d-%02d-%02d %02d:%02d:%02d\n",
+				tm->tm_year+1900, tm->tm_mon+1, tm->tm_mday,
+				tm->tm_hour, tm->tm_min, tm->tm_sec);
 
 		pthread_exit(NULL);
 		return 0;
 }
 
 void ParallelTeam::createProcessTeam(int n) {
-	cout << "createProcessTeam";
 	assert(pthreadsSize == 0); // can't be already running
 
 	workSegment = (int) _workListSize / n;
@@ -104,7 +89,8 @@ void ParallelTeam::createProcessTeam(int n) {
 
 	// create process
 	time_t start_time = time(NULL);
-	pthreads = new pthread_t[n];
+	pthreadsSize=-1;
+	pthreads = (pthread_t*) malloc(sizeof(pthread_t)*n);
 	for(int i = 0; i < n; i++) {
 		int t = pthread_create( &pthreads[i], NULL, hello_helper, this);
 		pthreadsSize++;
@@ -121,6 +107,7 @@ void ParallelTeam::createProcessTeam(int n) {
 		int statusJoin = pthread_join(pthreads[i], &presults);
 		cout << "Parent says: my child thread index #" << i << " ended. Second Duration: " << (time(NULL) - start_time) << endl;
 	}
+	pthreadsSize=0;
 	onChildrenComplete(n); //Post process
 }
 

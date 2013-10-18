@@ -22,8 +22,6 @@ Data: 10/16/2013
 
 class ParallelTeam {
 private:
-	Memory *mem;
-	int pthreadsSize;
 	pthread_t * pthreads;
 
 	int* _workList;
@@ -32,6 +30,8 @@ private:
 	pthread_mutex_t mutex;
 
 public:
+	Memory *mem;
+	int pthreadsSize;
 	ParallelTeam(int* workList, int workListSize);
 	virtual ~ParallelTeam();
 	void childLogicWrapper();
