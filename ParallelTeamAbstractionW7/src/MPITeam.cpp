@@ -29,6 +29,7 @@ MPITeam::~MPITeam() {
 //create a team of n processing units of the given type.
 //For example createProcessTeam(100) creates a team of 100 processes.
 void MPITeam::createTeam(int n) {
+	BaseTeam::createTeam(n);
 	MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	startFuncs[rank](this);
@@ -61,7 +62,7 @@ void MPITeam::unlockSemaphoreSet() {
 }
 //permit all compute units to begin executing instructions.
 void MPITeam::startAllTeamMembers() {
-
+	BaseTeam::startAllTeamMembers();
 }
 //wait until all compute units have completed execution instructions.
 void MPITeam::waitForAllTeamMembers() {

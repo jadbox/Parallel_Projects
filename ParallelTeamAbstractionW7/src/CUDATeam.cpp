@@ -14,42 +14,48 @@ Data: 11/19/2013
 
 #include "CUDATeam.h"
 
-
-//create a team of n processing units of the given type.
-//For example createProcessTeam(100) creates a team of 100 processes.
-void createTeam(int n) {
+CUDATeam::CUDATeam() {
 
 }
+
+CUDATeam::~CUDATeam() {
+
+}
+//create a team of n processing units of the given type.
+//For example createProcessTeam(100) creates a team of 100 processes.
+void CUDATeam::createTeam(int n) {
+	BaseTeam::createTeam(n);
+}
 //create a set of semaphores where each team member can access the semaphore corresponding to its index.
-void createSemaphoreSet(int n) {
+void CUDATeam::createSemaphoreSet(int n) {
 
 }
 //delete a set of semaphores and release all associated resources.
-void deleteSemaphoreSet() {
+void CUDATeam::deleteSemaphoreSet() {
 
 }
 //set the initial values for all semaphores in the set using the arrays.
 //Note this call is valid only before semaphores are put into use.
-void setAllSemaphoresInSet(unsigned short *values) {
+void CUDATeam::setAllSemaphoresInSet(unsigned short *values) {
 
 }
 //peform the lock() operation on a semaphore with the given index.
-void lockSemaphoreInSet(int index) {
+void CUDATeam::lockSemaphoreInSet(int index) {
 
 }
 //perform the unlock() operation on a semaphore with the given index.
-void unlockSemaphoreInSet(int index) {
+void CUDATeam::unlockSemaphoreInSet(int index) {
 
 }
 //unlock all semaphores in the set.
-void unlockSemaphoreSet() {
+void CUDATeam::unlockSemaphoreSet() {
 
 }
 //permit all compute units to begin executing instructions.
-void startAllTeamMembers() {
-
+void CUDATeam::startAllTeamMembers() {
+	BaseTeam::startAllTeamMembers();
 }
 //wait until all compute units have completed execution instructions.
-void waitForAllTeamMembers() {
+void CUDATeam::waitForAllTeamMembers() {
 
 }

@@ -26,10 +26,17 @@ void* createThreadTeam(void *ptr) {
 	pthread_exit(NULL);
 }
 
+ThreadTeam::ThreadTeam() {
+
+}
+
+ThreadTeam::~ThreadTeam() {
+
+}
 //create a team of n processing units of the given type.
 //For example createProcessTeam(100) creates a team of 100 processes.
 void ThreadTeam::createTeam(int n) {
-
+	BaseTeam::createTeam(n);
 }
 //permit all compute units to begin executing instructions.
 void ThreadTeam::startAllTeamMembers() {

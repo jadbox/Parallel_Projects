@@ -53,9 +53,6 @@ public:
 	//wait until all compute units have completed execution instructions.
 	virtual void waitForAllTeamMembers();
 	//Configure the default function that should be called to begin program execution for each member of the Team.
-	virtual void setEntryFunction(executionEntryFunc startFunc);
-	//configure the function that a specific team member should call in order to begin program execution.
-	virtual void setEntryFunction(int index, executionEntryFunc startFunc);
 
 };
 

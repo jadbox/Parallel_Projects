@@ -22,13 +22,12 @@ Data: 11/19/2013
 using namespace std;
 
 class MPITeam: public BaseTeam {
-private:
+
+public:
 	int numProcs;
 	int rank;
 
-public:
 	MPITeam();
-
 	virtual ~MPITeam();
 
 	//create a team of n processing units of the given type.

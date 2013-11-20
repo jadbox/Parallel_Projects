@@ -53,7 +53,7 @@ public:
 	//permit all compute units to begin executing instructions.
 	virtual void startAllTeamMembers() { startTime = time(NULL); }
 	//wait until all compute units have completed execution instructions.
-	virtual void waitForAllTeamMembers();
+	virtual void waitForAllTeamMembers()=0;
 	// return the number of compute units in the team.
 	virtual int getSizeOfTeam() { return numCompUnits; }
 	//Configure the default function that should be called to begin program execution for each member of the Team.
