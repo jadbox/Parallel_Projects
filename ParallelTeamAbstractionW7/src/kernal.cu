@@ -14,79 +14,64 @@ Data: 11/19/2013
 
 #include <stdio.h>
 
+#include <assert.h>
+#include <cuda.h>
+#include <cstdlib>
 
-
-__global__ void kernel(int *array1, int *array2, int *array3)
-
+__global__ void incrementArrayOnDevice(int *a, int N, int *count)
 {
+    int id = blockIdx.x * blockDim.x + threadIdx.x;
 
-int index = blockIdx.x * blockDim.x + threadIdx.x;
-
-array3[index] = array1[index] + array2[index];
-
+    if( id < N )
+    {
+        if( a[id] == 3 )
+        {
+            atomicAdd(count, 1);
+        }
+    }
 }
-
-
 
 extern "C"
 
-void run_kernel()
+int run_kernel(int *a_h, int length)
 
 {
+    //int *a_h;   // host
+    int *a_d;   // device
 
-int i, array1[6], array2[6], array3[6], *devarray1, *devarray2, *devarray3;
+    int N = length;
 
-for(i = 0; i < 6; i++)
+    // allocate array on host
+    a_h = (int*)malloc(sizeof(int) * N);
+    for(int i = 0; i < N; ++i)
+        a_h[i] = (i % 3 == 0 ? 3 : 1);
 
-{
+    // allocate arrays on device
+    cudaMalloc(&a_d, sizeof(int) * N);
 
-array1[i] = i;
+    // copy data from host to device
+    cudaMemcpy(a_d, a_h, sizeof(int) * N, cudaMemcpyHostToDevice);
 
-array2[i] = 3-i;
+    // do calculation on device
+    int blockSize = 512;
+    int nBlocks = N / blockSize + (N % blockSize == 0 ? 0 : 1);
+    printf("number of blocks: %d\n", nBlocks);
 
-}
+    int count;
+    int *devCount;
+    cudaMalloc(&devCount, sizeof(int));
+    cudaMemset(devCount, 0, sizeof(int));
 
+    incrementArrayOnDevice<<<nBlocks, blockSize>>> (a_d, N, devCount);
+    
+    cudaMemcpy(&count, devCount, sizeof(int), cudaMemcpyDeviceToHost); // retrieve result from device
 
+    //printf("%d\n", count);
 
-cudaMalloc((void**) &devarray1, sizeof(int)*6);
-
-cudaMalloc((void**) &devarray2, sizeof(int)*6);
-
-cudaMalloc((void**) &devarray3, sizeof(int)*6);
-
-
-
-cudaMemcpy(devarray1, array1, sizeof(int)*6, cudaMemcpyHostToDevice);
-
-cudaMemcpy(devarray2, array2, sizeof(int)*6, cudaMemcpyHostToDevice);
-
-
-
-kernel<<<2, 3>>>(devarray1, devarray2, devarray3);
-
-
-
-cudaMemcpy(array3, devarray3, sizeof(int)*6, cudaMemcpyDeviceToHost);
-
-
-
-for(i = 0; i < 6; i++)
-
-{
-
-printf("%d ", array3[i]);
-
-}
-
-printf("\n");
-
-
-
-cudaFree(devarray1);
-
-cudaFree(devarray2);
-
-cudaFree(devarray3);
-
+    free(a_h);
+    cudaFree(a_d);
+    cudaFree(devCount);
+    
+    return count;
 }
 
