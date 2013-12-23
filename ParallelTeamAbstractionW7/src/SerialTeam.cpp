@@ -22,7 +22,7 @@ SerialTeam::SerialTeam(int* data, int size):BaseTeam(data, size) {
 
 //permit all compute units to begin executing instructions.
 void SerialTeam::startAllTeamMembers() {
-	startTimer();
+	startTimer(); // start timer
 
 	int workLength = ceil((double)length / this->numCompUnits);
 	int remainingSize = length;
@@ -37,7 +37,7 @@ void SerialTeam::startAllTeamMembers() {
 		this->startFuncs[currIdx](payload);
 	}
 
-	stopAndDisplayTime();
+	stopAndDisplayTime(); // stop timer and display timed results
 }
 
 //wait until all compute units have completed execution instructions.
