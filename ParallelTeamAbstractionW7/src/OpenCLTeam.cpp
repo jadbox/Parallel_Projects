@@ -10,18 +10,21 @@ Assignment: Final
 
 Data: 12/22/2013
 
-*/
+ */
 
 #include "OpenCLTeam.h"
 
-OpenCLTeam::OpenCLTeam(int* data, int size):BaseTeam(data, size) {
-	// TODO Auto-generated constructor stub
+OpenCLTeam::OpenCLTeam(int* data, int size):BaseTeam(data, size) {}
 
-}
 //permit all compute units to begin executing instructions.
 void OpenCLTeam::startAllTeamMembers() {
+	//directly invokes a single call to the entry function for invoking the kernel
+	ProcessParams* payload = new ProcessParams();
+	payload->obj = this;
+	payload->data = data;
+	payload->length = length;
+	this->startFuncs[0](payload);
 }
-//wait until all compute units have completed execution instructions.
-void OpenCLTeam::waitForAllTeamMembers() {
 
-}
+//wait until all compute units have completed execution instructions.
+void OpenCLTeam::waitForAllTeamMembers() {}

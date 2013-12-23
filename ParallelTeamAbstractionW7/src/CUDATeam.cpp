@@ -13,6 +13,7 @@ Data: 12/22/2013
 */
 
 #include "CUDATeam.h"
+#include <CL/cl.h>
 
 CUDATeam::CUDATeam(int* data, int size):BaseTeam(data, size) {
 

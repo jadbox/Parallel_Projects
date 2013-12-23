@@ -38,7 +38,7 @@ void entryFuncALU(void* entryProxy) {
 	member->lockSemaphoreInSet(0);
 	member->result += result;
 	member->unlockSemaphoreInSet(0);
-	delete ProcessParams;
+	delete entry;
 }
 // This is the entry function designated for the CUDA team
 void entryFuncCUDA(void* entryProxy) {
@@ -46,11 +46,11 @@ void entryFuncCUDA(void* entryProxy) {
 	//int index = (int) entry;
 	BaseTeam* member = entry->obj;
 
-	int result = run_kernel(member->data, member->numCompUnits);
+	int result = run_kernel(entry->data, entry->length);
 	member->lockSemaphoreInSet(0);
 	member->result += result;
 	member->unlockSemaphoreInSet(0);
-	delete entryProxy;
+	delete entry;
 }
 
 // Used for the OpenCL implementation
@@ -59,7 +59,7 @@ void entryFuncOpenCL(void* entryProxy) {
 	//int index = (int) entry;
 	BaseTeam* member = entry->obj;
 
-	delete entryProxy;
+	delete entry;
 }
 
 // Starting point for our application
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
 	// Initialize MPI which is needed for MPITeam
 	MPI_Init(&argc, &argv);
 
-
+	// Source array for data to count the 3s into
 	int data[] = {1, 5, 3, 8, 3, 3, 35, 237, 95, 326, 623, 532, 3, 4543, 3};
 	int size = 15;
 

@@ -15,7 +15,6 @@ Data: 12/22/2013
 #ifndef OPENCLTEAM_H_
 #define OPENCLTEAM_H_
 #include "BaseTeam.h"
-#include <OpenCL/opencl.h>
 
 using namespace std;
 
