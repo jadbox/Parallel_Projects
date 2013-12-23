@@ -1,14 +1,14 @@
 /*
 
-Name: Jonathan Dunlap
+Name: Jonathan Dunlap & Lauren Kroll
 
 Course: Introduction to Parallel and Cloud Computing
 
 CRN: 75092
 
-Assignment: Refactor ParallelTeam
+Assignment: Final
 
-Data: 11/19/2013
+Data: 12/22/2013
 
 */
 
@@ -18,7 +18,7 @@ using namespace std;
 
 void run_kernel();
 
-MPITeam::MPITeam() {
+MPITeam::MPITeam(int* data, int size):BaseTeam(data, size) {
 
 }
 
@@ -62,7 +62,6 @@ void MPITeam::unlockSemaphoreSet() {
 }
 //permit all compute units to begin executing instructions.
 void MPITeam::startAllTeamMembers() {
-	BaseTeam::startAllTeamMembers();
 }
 //wait until all compute units have completed execution instructions.
 void MPITeam::waitForAllTeamMembers() {

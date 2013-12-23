@@ -12,34 +12,20 @@ Data: 12/22/2013
 
 */
 
-#ifndef THREADTEAM_H_
-#define THREADTEAM_H_
-
+#ifndef OPENCLTEAM_H_
+#define OPENCLTEAM_H_
 #include "BaseTeam.h"
-
-//posix
-#include <pthread.h>
-//time_t
-#include <time.h>
-//standards
-#include <unistd.h>
-#include <iostream>
-#include <stdlib.h>
+#include <OpenCL/opencl.h>
 
 using namespace std;
 
-class ThreadTeam: public BaseTeam {
+class OpenCLTeam: public BaseTeam {
 public:
-	pthread_t* threads;
-
-	ThreadTeam(int* data, int size);
-	virtual ~ThreadTeam();
+	OpenCLTeam(int* data, int size);
 	//permit all compute units to begin executing instructions.
 	virtual void startAllTeamMembers();
 	//wait until all compute units have completed execution instructions.
 	virtual void waitForAllTeamMembers();
-
-	void createSemaphoreSet(int n);
 };
 
-#endif /* THREADTEAM_H_ */
+#endif /* OPENCLTEAM_H_ */

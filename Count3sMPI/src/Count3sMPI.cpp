@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
 
     //prints total count
     if (rank == RootProcess)
-        cout << "Number of 3's: " << globalCount << endl;
+        cout << "Number of 3's : " << globalCount << endl;
 
     //terminates program
     MPI_Finalize();

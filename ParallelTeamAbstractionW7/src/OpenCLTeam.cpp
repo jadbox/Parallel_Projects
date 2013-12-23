@@ -12,23 +12,16 @@ Data: 12/22/2013
 
 */
 
-#include "CUDATeam.h"
+#include "OpenCLTeam.h"
 
-CUDATeam::CUDATeam(int* data, int size):BaseTeam(data, size) {
-
-}
-
-CUDATeam::~CUDATeam() {
+OpenCLTeam::OpenCLTeam(int* data, int size):BaseTeam(data, size) {
+	// TODO Auto-generated constructor stub
 
 }
-
 //permit all compute units to begin executing instructions.
-void CUDATeam::startAllTeamMembers() {
-
-	int result = run_kernel(data, numCompUnits);
-	cout << "CUDA Result: " << result;
+void OpenCLTeam::startAllTeamMembers() {
 }
 //wait until all compute units have completed execution instructions.
-void CUDATeam::waitForAllTeamMembers() {
+void OpenCLTeam::waitForAllTeamMembers() {
 
 }

@@ -1,14 +1,14 @@
 /*
 
-Name: Jonathan Dunlap
+Name: Jonathan Dunlap & Lauren Kroll
 
 Course: Introduction to Parallel and Cloud Computing
 
 CRN: 75092
 
-Assignment: Refactor ParallelTeam
+Assignment: Final
 
-Data: 11/19/2013
+Data: 12/22/2013
 
 */
 
@@ -27,7 +27,7 @@ public:
 	int numProcs;
 	int rank;
 
-	MPITeam();
+	MPITeam(int* data, int size);
 	virtual ~MPITeam();
 
 	//create a team of n processing units of the given type.
