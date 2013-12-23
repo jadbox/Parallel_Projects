@@ -43,7 +43,6 @@ void entryFuncALU(void* entryProxy) {
 // This is the entry function designated for the CUDA team
 void entryFuncCUDA(void* entryProxy) {
 	ProcessParams* entry = (ProcessParams*) entryProxy;
-	//int index = (int) entry;
 	BaseTeam* member = entry->obj;
 
 	int result = run_kernel(entry->data, entry->length);
@@ -56,9 +55,10 @@ void entryFuncCUDA(void* entryProxy) {
 // Used for the OpenCL implementation
 void entryFuncOpenCL(void* entryProxy) {
 	ProcessParams* entry = (ProcessParams*) entryProxy;
-	//int index = (int) entry;
 	BaseTeam* member = entry->obj;
 
+	//UNCOMMENT once linking CLKernal.cl into project: hack to not conflict
+	//count3CUDA(entry->data, entry->length);
 	delete entry;
 }
 
@@ -118,6 +118,7 @@ int main(int argc, char *argv[]) {
 		cout << "Status: " << teamSet[i]->termStatus << endl;
 		cout << "============" << endl;
 	}
+
 	// ANNNNDDDD... we're done!
 	return 0;
 }

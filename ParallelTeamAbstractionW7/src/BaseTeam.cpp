@@ -15,17 +15,7 @@ Data: 12/22/2013
 #include "BaseTeam.h"
 #include <cassert>
 
-/*
-#if !defined(__GNU_LIBRARY__) || defined(_SEM_SEMUN_UNDEFINED)
-union semun
-{
-	int val; // value for SETVAL
-	struct semid_ds* buf; // buffer for IPC_STAT, IPC_SET
-	unsigned short* array; // array for GETALL, SETALL
-	struct seminfo* __buf; // buffer for IPC_INFO
-};
-#endif
-*/
+
 void BaseTeam::createTeam(int n) {
 	numCompUnits = n;
 	startFuncs = new executionEntryFunc[n];
@@ -43,52 +33,41 @@ void BaseTeam::setEntryFunction(int index, executionEntryFunc startFunc) {
 	startFuncs[index] = startFunc;
 }
 
-
-
 //create a set of semaphores where each team member can access the semaphore corresponding to its index.
 void BaseTeam::createSemaphoreSet(int n) {
-	/*
-	short* vals = new short[n];
-
-	union semun {
-		int val;
-		struct semid_ds *buf;
-		int *array;
-	} arg;
-	*/
-
-//	assert(n > 0); /* You need at least one! */
-//	assert(vals != NULL); /* And they need initialising! */
-//	sem_id = semget(IPC_PRIVATE, n, SHM_R | SHM_W);
-//	arg.array = vals;
-//	semctl(sem_id, 0, SETALL, arg);
 	for(int i = 0; i < numCompUnits; i++) {
 		sem_init(mutexes+i, 0, 1);
 	}
 }
+
 //delete a set of semaphores and release all associated resources.
 void BaseTeam::deleteSemaphoreSet() {
 	for(int i=0; i < numCompUnits; i++)
 		sem_destroy(&mutexes[i]);
 }
+
 //set the initial values for all semaphores in the set using the arrays.
 //Note this call is valid only before semaphores are put into use.
 void BaseTeam::setAllSemaphoresInSet(unsigned short *values) {
 	// not used for our implementation :)
 }
+
 //peform the lock() operation on a semaphore with the given index.
 void BaseTeam::lockSemaphoreInSet(int index) {
 	 sem_wait(&mutexes[index]);
 }
+
 //perform the unlock() operation on a semaphore with the given index.
 void BaseTeam::unlockSemaphoreInSet(int index) {
 	sem_post(&mutexes[index]);
 }
+
 //unlock all semaphores in the set.
 void BaseTeam::unlockSemaphoreSet() {
 	for(int i=0; i < this->numCompUnits; i++)
 		unlockSemaphoreInSet(i);
 }
+
 // start counting time
 void BaseTeam::startTimer() {
 	startTime = HPTimer::get_time();
