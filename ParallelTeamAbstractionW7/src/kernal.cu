@@ -66,8 +66,6 @@ int run_kernel(int *a_h, int length)
     
     cudaMemcpy(&count, devCount, sizeof(int), cudaMemcpyDeviceToHost); // retrieve result from device
 
-    //printf("%d\n", count);
-
     free(a_h);
     cudaFree(a_d);
     cudaFree(devCount);

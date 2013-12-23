@@ -24,10 +24,14 @@ CUDATeam::~CUDATeam() {
 
 //permit all compute units to begin executing instructions.
 void CUDATeam::startAllTeamMembers() {
-
-	int result = run_kernel(data, numCompUnits);
-	cout << "CUDA Result: " << result;
+	//directly invokes a single call to the entry function for invoking the kernel
+	ProcessParams* payload = new ProcessParams();
+	payload->obj = this;
+	payload->data = data;
+	payload->length = length;
+	this->startFuncs[0](payload);
 }
+
 //wait until all compute units have completed execution instructions.
 void CUDATeam::waitForAllTeamMembers() {
 

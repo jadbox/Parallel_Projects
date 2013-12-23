@@ -48,7 +48,7 @@ void MPITeam::deleteSemaphoreSet() {
 void MPITeam::setAllSemaphoresInSet(unsigned short *values) {
 
 }
-//peform the lock() operation on a semaphore with the given index.
+//perform the lock() operation on a semaphore with the given index.
 void MPITeam::lockSemaphoreInSet(int index) {
 
 }

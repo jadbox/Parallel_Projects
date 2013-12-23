@@ -14,7 +14,6 @@ Data: 12/22/2013
 
 #include "ProcessTeam.h"
 #include <unistd.h>
-//#include <stdlib.h>
 
 
 using namespace std;
@@ -59,7 +58,6 @@ void ProcessTeam::startAllTeamMembers() {
 		}
 
 	}
-
 	stopAndDisplayTime();
 }
 

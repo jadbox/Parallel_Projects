@@ -13,7 +13,7 @@ Data: 12/22/2013
 */
 
 #include "SerialTeam.h"
-#include <Math.h>
+
 
 SerialTeam::SerialTeam(int* data, int size):BaseTeam(data, size) {
 	// TODO Auto-generated constructor stub
@@ -39,7 +39,6 @@ void SerialTeam::startAllTeamMembers() {
 
 	stopAndDisplayTime();
 }
-//wait until all compute units have completed execution instructions.
-void SerialTeam::waitForAllTeamMembers() {
 
-}
+//wait until all compute units have completed execution instructions.
+void SerialTeam::waitForAllTeamMembers() {}

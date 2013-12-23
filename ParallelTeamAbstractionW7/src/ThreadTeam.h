@@ -38,7 +38,7 @@ public:
 	virtual void startAllTeamMembers();
 	//wait until all compute units have completed execution instructions.
 	virtual void waitForAllTeamMembers();
-
+	//overrides BaseTeam to denote thread, not process for initializing semaphores
 	void createSemaphoreSet(int n);
 };
 

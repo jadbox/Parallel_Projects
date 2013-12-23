@@ -68,24 +68,26 @@ void BaseTeam::createSemaphoreSet(int n) {
 }
 //delete a set of semaphores and release all associated resources.
 void BaseTeam::deleteSemaphoreSet() {
-
+	for(int i=0; i < numCompUnits; i++)
+		sem_destroy(&mutexes[i]);
 }
 //set the initial values for all semaphores in the set using the arrays.
 //Note this call is valid only before semaphores are put into use.
 void BaseTeam::setAllSemaphoresInSet(unsigned short *values) {
-
+	// not used for our implementation :)
 }
 //peform the lock() operation on a semaphore with the given index.
 void BaseTeam::lockSemaphoreInSet(int index) {
-
+	 sem_wait(&mutexes[index]);
 }
 //perform the unlock() operation on a semaphore with the given index.
 void BaseTeam::unlockSemaphoreInSet(int index) {
-
+	sem_post(&mutexes[index]);
 }
 //unlock all semaphores in the set.
 void BaseTeam::unlockSemaphoreSet() {
-
+	for(int i=0; i < this->numCompUnits; i++)
+		unlockSemaphoreInSet(i);
 }
 // start counting time
 void BaseTeam::startTimer() {
